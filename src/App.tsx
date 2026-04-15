@@ -336,6 +336,84 @@ function App() {
   // };
 
 
+  //Exclude
+  
+  type User5 = "admin" | "user" | "guest"
+  type User6 = Exclude<User5, "admin"> // "user" | "guest"
+
+  let user7: User6 = "guest" // Error: Type '"admin"' is not assignable to type 'User6'.
+
+
+  //extract
+  
+  type User7 = "admin" | "user" | "guest"
+  type User8 = Extract<User7, "admin" | "user"> // "admin" | "user"
+  let user8: User8 = "user" // Error: Type '"guest"' is not assignable to type 'User8'.
+
+  //Uppercase
+  
+  type User9 = "admin" | "user" | "guest"
+  type User10 = Uppercase<User9> // "ADMIN" | "USER" | "GUEST"
+  let user9: User10 = "USER" // Error: Type '"admin"' is not assignable to type 'User10'.
+
+  //Lowercase
+  
+  type User11 = "ADMIN" | "USER" | "GUEST"
+  type User12 = Lowercase<User11> // "admin" | "user" | "guest"
+  let user10: User12 = "admin" // Error: Type '"ADMIN"' is not assignable to type 'User12'.
+  
+  //Capitalize
+  type User13 = "admin" | "user" | "guest"
+  type User14 = Capitalize<User13> // "Admin" | "User" | "Guest"
+  let user11: User14 = "Admin" // Error: Type '"admin"' is not assignable to type 'User14'.
+  
+  //Uncapitalize
+  type User15 = "Admin" | "User" | "Guest"
+  type User16 = Uncapitalize<User15> // "admin" | "user" | "guest"
+  let user12: User16 = "admin" // Error: Type '"Admin"' is not assignable to type 'User16'.
+
+  //return type
+
+
+  function getUser(): { name: string; age: number } {
+    return {
+      name: "user",
+      age: 12,
+    };
+  }
+
+  type GetUserReturnType = ReturnType<typeof getUser>;
+
+  const user13: GetUserReturnType = {
+    name: "user13",
+    age: 12,
+  };
+
+  //parameters
+
+  function add(a: number, b: string): string {
+    return a + b;
+  }
+
+
+  type AddParameters = Parameters<typeof add>;
+
+  const addParams: AddParameters = [12, "45"];
+
+
+  //record type
+
+  type UserRoles = Record<"admin" | "user" | "guest" | "age" | "married", boolean>
+
+  const user90: UserRoles = {
+    admin: true,
+    user: false,
+    guest: true,
+    age:true,
+    married:false,
+  }
+
+  
 
 
 
@@ -344,8 +422,7 @@ function App() {
 
 
 
-
-
+  
 
   return <div>App</div>;
 }
