@@ -290,7 +290,7 @@ function App() {
   //   married: boolean;
   //   studies: any;
   // }
-  
+
   // const user2: Omit<User2, "age" | "married"> = {
   //   name: "user2",
   //   studies: "bor",
@@ -307,19 +307,17 @@ function App() {
   //   married: false,
   //   studies: "bor",
   // };
-  
-//   user4.name = "new name"; // Error: Cannot assign to 'name' because it is a read-only property.
-//   delete user4.age; // Error: Cannot delete property 'age' because it is a read-only property.
-//   user4.studies = "new studies"; // Error: Cannot assign to 'studies' because it is a read-only property.
-// console.log(user4);
 
+  //   user4.name = "new name"; // Error: Cannot assign to 'name' because it is a read-only property.
+  //   delete user4.age; // Error: Cannot delete property 'age' because it is a read-only property.
+  //   user4.studies = "new studies"; // Error: Cannot assign to 'studies' because it is a read-only property.
+  // console.log(user4);
 
   // type User3 = 12 | null | undefined
   // let user5: NonNullable<User3> = 12
   // // user3 = null // Error: Type 'null' is not assignable to type 'NonNullable<User3>'.
   // // user3 = undefined // Error: Type 'undefined' is not assignable to type 'NonNullable<User3>'.
   // console.log(user5);
-
 
   // interface User4 {
   //   name?: string;
@@ -335,94 +333,136 @@ function App() {
   //   studies: "bor",
   // };
 
+  // //Exclude
 
-  //Exclude
+  // type User5 = "admin" | "user" | "guest"
+  // type User6 = Exclude<User5, "admin"> // "user" | "guest"
+
+  // let user7: User6 = "guest" // Error: Type '"admin"' is not assignable to type 'User6'.
+
+  // //extract
+
+  // type User7 = "admin" | "user" | "guest"
+  // type User8 = Extract<User7, "admin" | "user"> // "admin" | "user"
+  // let user8: User8 = "user" // Error: Type '"guest"' is not assignable to type 'User8'.
+
+  // //Uppercase
+
+  // type User9 = "admin" | "user" | "guest"
+  // type User10 = Uppercase<User9> // "ADMIN" | "USER" | "GUEST"
+  // let user9: User10 = "USER" // Error: Type '"admin"' is not assignable to type 'User10'.
+
+  // //Lowercase
+
+  // type User11 = "ADMIN" | "USER" | "GUEST"
+  // type User12 = Lowercase<User11> // "admin" | "user" | "guest"
+  // let user10: User12 = "admin" // Error: Type '"ADMIN"' is not assignable to type 'User12'.
+
+  // //Capitalize
+  // type User13 = "admin" | "user" | "guest"
+  // type User14 = Capitalize<User13> // "Admin" | "User" | "Guest"
+  // let user11: User14 = "Admin" // Error: Type '"admin"' is not assignable to type 'User14'.
+
+  // //Uncapitalize
+  // type User15 = "Admin" | "User" | "Guest"
+  // type User16 = Uncapitalize<User15> // "admin" | "user" | "guest"
+  // let user12: User16 = "admin" // Error: Type '"Admin"' is not assignable to type 'User16'.
+
+  // //return type
+
+  // function getUser(): { name: string; age: number } {
+  //   return {
+  //     name: "user",
+  //     age: 12,
+  //   };
+  // }
+
+  // type GetUserReturnType = ReturnType<typeof getUser>;
+
+  // const user13: GetUserReturnType = {
+  //   name: "user13",
+  //   age: 12,
+  // };
+
+  // //parameters
+
+  // function add(a: number, b: string): string {
+  //   return a + b;
+  // }
+
+  // type AddParameters = Parameters<typeof add>;
+
+  // const addParams: AddParameters = [12, "45"];
+
+  // //record type
+
+  // type UserRoles = Record<"admin" | "user" | "guest" | "age" | "married", boolean>
+
+  // const user90: UserRoles = {
+  //   admin: true,
+  //   user: false,
+  //   guest: true,
+  //   age:true,
+  //   married:false,
+  // }
+
+  //generics
+
+  // function identity<T>(arg: T): T {
+  //   return arg;
+  // }
+
+  // const output1 = identity<string>("hello");
+  // const output2 = identity<number>(123);
+  // const output3 = identity<boolean>(true);
+  // const output4 = identity<{ name: string; age: number }>({ name: "user", age: 12 });
+
+  // // function hello(a: any): void {
+  // //   console.log(a);
+  // // }
+
+  // // hello("hello world");
+
+
+  // let a:number[] = [12, 45, 67, 89,78,]
+  // let b:string[] = ["hello", 'hello']
+  // let c:boolean[] = [true, false, true]
+
+
+  //default generic type
   
-  type User5 = "admin" | "user" | "guest"
-  type User6 = Exclude<User5, "admin"> // "user" | "guest"
+  // function identity<T = string>(arg: T): T {
+  //   return arg;
+  // }  
 
-  let user7: User6 = "guest" // Error: Type '"admin"' is not assignable to type 'User6'.
+  // const output1 = identity("hello"); // T will be inferred as string
+  // const output2 = identity<number>(123);
+  // const output3 = identity<boolean>(true);
+  // const output4 = identity<{ name: string; age: number }>({ name: "user", age: 12 });
+
+  //multiple generic types
+
+  // function identity<T, U>(arg1: T, arg2: U): [T, U] {
+  //   return [arg1, arg2];
+  // }
+
+  // const output5 = identity<string, number>("hello", 123);
+  // const output6 = identity<boolean, string>(true, "world");
+  // const output7 = identity<{ name: string }, number>({ name: "user" }, 12);
 
 
-  //extract
+  //multiply generics with objects
   
-  type User7 = "admin" | "user" | "guest"
-  type User8 = Extract<User7, "admin" | "user"> // "admin" | "user"
-  let user8: User8 = "user" // Error: Type '"guest"' is not assignable to type 'User8'.
+  // function identity<T, U>(arg1: T, arg2: U): { arg1: T; arg2: U } {
+  //   return { arg1, arg2 };
+  // }  
 
-  //Uppercase
-  
-  type User9 = "admin" | "user" | "guest"
-  type User10 = Uppercase<User9> // "ADMIN" | "USER" | "GUEST"
-  let user9: User10 = "USER" // Error: Type '"admin"' is not assignable to type 'User10'.
-
-  //Lowercase
-  
-  type User11 = "ADMIN" | "USER" | "GUEST"
-  type User12 = Lowercase<User11> // "admin" | "user" | "guest"
-  let user10: User12 = "admin" // Error: Type '"ADMIN"' is not assignable to type 'User12'.
-  
-  //Capitalize
-  type User13 = "admin" | "user" | "guest"
-  type User14 = Capitalize<User13> // "Admin" | "User" | "Guest"
-  let user11: User14 = "Admin" // Error: Type '"admin"' is not assignable to type 'User14'.
-  
-  //Uncapitalize
-  type User15 = "Admin" | "User" | "Guest"
-  type User16 = Uncapitalize<User15> // "admin" | "user" | "guest"
-  let user12: User16 = "admin" // Error: Type '"Admin"' is not assignable to type 'User16'.
-
-  //return type
-
-
-  function getUser(): { name: string; age: number } {
-    return {
-      name: "user",
-      age: 12,
-    };
-  }
-
-  type GetUserReturnType = ReturnType<typeof getUser>;
-
-  const user13: GetUserReturnType = {
-    name: "user13",
-    age: 12,
-  };
-
-  //parameters
-
-  function add(a: number, b: string): string {
-    return a + b;
-  }
-
-
-  type AddParameters = Parameters<typeof add>;
-
-  const addParams: AddParameters = [12, "45"];
-
-
-  //record type
-
-  type UserRoles = Record<"admin" | "user" | "guest" | "age" | "married", boolean>
-
-  const user90: UserRoles = {
-    admin: true,
-    user: false,
-    guest: true,
-    age:true,
-    married:false,
-  }
-
-  
+  // const output8 = identity<string, number>("hello", 123);
+  // const output9 = identity<boolean, string>(true, "world");
+  // const output10 = identity<{ name: string }, number>({ name: "user" }, 12);
 
 
 
-
-
-
-
-
-  
 
   return <div>App</div>;
 }
